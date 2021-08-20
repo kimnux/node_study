@@ -11,12 +11,23 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
+// ejs 사용시
+app.set('view engine', 'ejs');
+// pug 사용시
+app.set('view engine', 'pug');
+
+
 // url routing
 app.get('/', function(req, res) {
     res.sendFile(__dirname+"/public/main.html");
 });
 
-app.post('/email_post', function(req, res){
+app.post('/email_post/ejs', function(req, res){
     console.log("email:", req.body.email);
-    res.send("<h1>welcome " + req.body.email + "!</h1>");
+    res.render('email.ejs', { 'email' : req.body.email }); // ejs
+});
+
+app.post('/email_post/pug', function(req, res){
+    console.log("email:", req.body.email);
+    res.render('email.pug', { 'email' : req.body.email });
 });

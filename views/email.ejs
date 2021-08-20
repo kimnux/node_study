@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>email form</title>
+    <title>email ejs template</title>
 </head>
 <body>
-    <form action="/email_post" method="post">
-        <div>
-            email : <input type="text" name="email" id="email" >
-        </div>
-        <input type="submit" value="전송">
-    </form>
+    
+    <h1>Welcome !! <%= email %></h1>
+
+    <p>EJS는 이렇게쓴다...</p>
+    
 </body>
 </html>

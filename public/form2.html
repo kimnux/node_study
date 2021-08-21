@@ -13,5 +13,31 @@
         </div>
         <input type="submit" value="전송">
     </form>
+    
+    <button id="ajaxsend">ajaxsend</button>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById("ajaxsend").addEventListener('click', function() {
+            let inputdata = document.getElementById('email').value;
+            sendAjax('http://localhost:3000/ajax_send_email', inputdata);
+        });
+
+        let sendAjax = (url, email) => {
+            let data = {email};
+            data = JSON.stringify(data);
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', url);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(data);
+            xhr.addEventListener('load', function() {
+                // console.log(xhr.responseText);
+                let result = JSON.parse(xhr.responseText);
+                if(result.success_yn) {
+                    document.getElementById('result').innerHTML = result.email;
+                }
+            });
+        }
+    </script>
 </body>
 </html>

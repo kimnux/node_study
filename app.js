@@ -31,3 +31,9 @@ app.post('/email_post/pug', function(req, res){
     console.log("email:", req.body.email);
     res.render('email.pug', { 'email' : req.body.email });
 });
+
+app.post('/ajax_send_email', function(req, res){
+    console.log(req.body.email);
+    let responseData = {'success_yn':true, 'email':req.body.email};
+    res.json(responseData);
+});

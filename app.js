@@ -37,3 +37,15 @@ app.post('/ajax_send_email', function(req, res){
     let responseData = {'success_yn':true, 'email':req.body.email};
     res.json(responseData);
 });
+
+app.post('/ajax_send_search', function(req, res) {
+    console.log(req.body.data);
+    let responseData = {};
+    try {
+        responseData = {'success_yn':true, 'data':req.body.data}
+    } catch (error) {
+        console.log(error);
+        responseData = {'success_yn':false}
+    }
+    res.json(responseData);
+})

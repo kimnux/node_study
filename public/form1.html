@@ -34,7 +34,9 @@
                 // console.log(xhr.responseText);
                 let result = JSON.parse(xhr.responseText);
                 if(result.success_yn) {
-                    document.getElementById('result').innerHTML = result.email;
+                    document.getElementById('result').innerHTML = result.name;
+                }else {
+                    document.getElementById('result').innerHTML = 'Your email is not found!!';
                 }
             });
         }

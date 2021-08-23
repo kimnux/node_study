@@ -1,5 +1,15 @@
 var express = require('express');
 var app = express();
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+    host     : 'localhost',
+    database : 'nodedb',
+    user     : 'nodeman',
+    password : '123456'
+  });
+
+connection.connect();
 
 app.listen(3000, function() {
     console.log("start! express server on port 3000");
@@ -33,9 +43,21 @@ app.post('/email_post/pug', function(req, res){
 });
 
 app.post('/ajax_send_email', function(req, res){
-    console.log(req.body.email);
-    let responseData = {'success_yn':true, 'email':req.body.email};
-    res.json(responseData);
+    var email = req.body.email;
+    var responseData = {};
+
+    var query = connection.query('select name from user where email="' + email + '"', function (err, rows) {
+        if(err) throw error;
+
+        if( rows[0] ) {
+            responseData.success_yn = true;
+            responseData.name = rows[0].name;
+        }else {
+            responseData.success_yn = false;
+        }
+
+        res.json(responseData);
+    });
 });
 
 app.post('/ajax_send_search', function(req, res) {
@@ -48,4 +70,5 @@ app.post('/ajax_send_search', function(req, res) {
         responseData = {'success_yn':false}
     }
     res.json(responseData);
-})
+});
+

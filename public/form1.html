@@ -20,7 +20,7 @@
     <script>
         document.getElementById("ajaxsend").addEventListener('click', function() {
             let inputdata = document.getElementById('email').value;
-            sendAjax('http://localhost:3000/ajax_send_email', inputdata);
+            sendAjax('http://localhost:3000/email_post/ajax_send_email', inputdata);
         });
 
         let sendAjax = (url, email) => {

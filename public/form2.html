@@ -20,7 +20,7 @@
     <script>
         document.getElementById("ajaxsend").addEventListener('click', function() {
             let inputdata = document.getElementById('email').value;
-            sendAjax('http://localhost:3000/ajax_send_email', inputdata);
+            sendAjax('http://localhost:3000/email_post/ajax_send_email', inputdata);
         });
 
         let sendAjax = (url, email) => {
@@ -34,7 +34,9 @@
                 // console.log(xhr.responseText);
                 let result = JSON.parse(xhr.responseText);
                 if(result.success_yn) {
-                    document.getElementById('result').innerHTML = result.email;
+                    document.getElementById('result').innerHTML = result.name;
+                }else {
+                    document.getElementById('result').innerHTML = 'Your email is not found!!';
                 }
             });
         }

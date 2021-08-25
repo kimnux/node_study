@@ -17,7 +17,7 @@
         let search = () => {
             console.log('search clicked');
             let searchText = document.getElementById('searchText').value;
-            sendAjax('http://localhost:3000/ajax_send_search', searchText, 'POST');
+            sendAjax('http://localhost:3000/email_post/ajax_send_search', searchText, 'POST');
         }
 
         let sendAjax = (url, data, method) => {

@@ -10,6 +10,8 @@ var connection = mysql.createConnection({
     password : '123456'
 });
 
+connection.connect();
+
 router.post('/ejs', function(req, res){
     console.log("email:", req.body.email);
     res.render('email.ejs', { 'email' : req.body.email }); // ejs
@@ -37,6 +39,18 @@ router.post('/ajax_send_email', function(req, res){
 
         res.json(responseData);
     });
+});
+
+router.post('/ajax_send_search', function(req, res) {
+    console.log(req.body.data);
+    let responseData = {};
+    try {
+        responseData = {'success_yn':true, 'data':req.body.data}
+    } catch (error) {
+        console.log(error);
+        responseData = {'success_yn':false}
+    }
+    res.json(responseData);
 });
 
 module.exports = router;

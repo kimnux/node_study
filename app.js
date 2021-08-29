@@ -2,6 +2,10 @@ var express = require('express');
 var app = express();
 var router = require('./router/index');
 var cors = require('cors');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
+var flash = require('connect-flash');
 
 app.listen(3000, function() {
     console.log('CORS-enabled web server listening on port 3000')
@@ -18,6 +22,17 @@ app.use(cors());
 app.set('view engine', 'ejs');
 // pug 사용시
 app.set('view engine', 'pug');
+
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 
 // url routing

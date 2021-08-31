@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>email form</title>
+</head>
+<body>
+    <form action="/login" method="post">
+        <div>
+            email : <input type="text" name="email" id="email" >
+            pwd : <input type="password" name="pwd" id="pwd" >
+        </div>
+    </form>
+
+    <button id="ajaxsend">login</button>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById("ajaxsend").addEventListener('click', function() {
+            let email = document.getElementById('email').value;
+            let pwd = document.getElementById('pwd').value;
+            sendAjax('http://localhost:3000/login', {email, pwd});
+        });
+
+        let sendAjax = (url, data) => {
+            data = JSON.stringify(data);
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', url);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(data);
+            xhr.addEventListener('load', function() {
+                // console.log(xhr.responseText);
+                let result = JSON.parse(xhr.responseText);
+                if(result.email) {
+                    document.getElementById('result').innerHTML = 'welcome, ' + result.email + '!';
+                }else {
+                    document.getElementById('result').innerHTML = result;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
